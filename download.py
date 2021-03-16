@@ -5,11 +5,7 @@ import re
 
 pattern = re.compile(r'value=\'([\d-]*)\' name="Id" class="btn btn-link docImage')
 
-
-
-
-
-
+# you get the web page guts
 
 
 for (pdf_id) in re.findall(pattern, web_page_guts):
