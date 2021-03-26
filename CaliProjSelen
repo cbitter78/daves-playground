@@ -1,0 +1,32 @@
+import pandas as pd
+from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+import csv
+import time
+
+# options = webdriver.ChromeOptions()
+# options.headless = True
+driver = webdriver.Chrome(executable_path= 'C:\Webdrivers\chromedriver.exe')
+exread = pd.read_excel(r'C:\Users\Alexander\Desktop\cali_names.xlsx', sheet_name= 'Sheet1')
+hoa_list = exread.values.tolist()
+
+
+for row in hoa_list:
+    for col in row:
+        y = col
+        url = 'https://businesssearch.sos.ca.gov/CBS/SearchResults?filing=&SearchType=CORP&SearchCriteria='+ y + '&SearchSubType=Keyword'
+        driver.get(url)
+    try:
+        bttn = driver.find_element_by_name('EntityId')
+        bttn.click()
+        pdf = driver.find_elements_by_name('Id')
+        for ids in pdf:
+            ret_id = ids.get_attribute('value')
+            ret_btn = ids.get_attribute('id')
+            #print([ret_id, ret_btn])
+            idee = str(ret_id)
+            data = []
+            for i in idee:
+                dwnld_url = 'https://businesssearch.sos.ca.gov/Document/RetrievePDF?Id=' + str(idee)
+                data.append(dwnld_url)
+                print(data)
