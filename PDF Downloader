@@ -20,5 +20,7 @@ for rows in link_list:
     filename = x + 1 +'.pdf'
     
     with open(filename, 'wb') as f:
-        f.write(chunk)
-        print(filename)
+        for chunk in req.iter_content(chunk_size=9999):
+            if chunk:
+                f.write(chunk)
+            print(filename)
