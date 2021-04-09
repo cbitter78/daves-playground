@@ -1,2 +1,12 @@
-*.pdf
 venv/
+debug.log*
+*.pyc
+.kube
+.DS_Store
+.vscode/
+.jwt
+*.xlsx
+*.csv
+*.log
+
+pdfs/
