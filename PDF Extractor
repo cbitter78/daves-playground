@@ -1,0 +1,21 @@
+import io
+from PIL import Image
+from wand.image import Image as wi
+
+pdf = wi(filename = '1-  10 Sierragate Owners Association.pdf', resolution = 300)
+pdfImg = pdf.convert('jpg')
+
+imgBlobs = []
+
+for image in pdfImg.sequence:
+    page = wi(image = img)
+    imgBlobs.append(page.make_blob('jpeg'))
+
+extracted_text = []
+
+for imgBlob in imgBlobs:
+    im = Image.open(io.BytesIO(imgBlob))
+    text = pytesseract.image_to_string(im, lang = 'eng')
+    extracted_text.append(text)
+
+print(extracted_text[0])
